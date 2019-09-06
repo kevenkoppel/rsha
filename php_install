@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+#See skript paigaldab php teenuse koos vajalike pakettidega veebiserveri töötamiseks
+#
+#
+php=$(dpkg-query -W -f='${Status}' php7.3 2>/dev/null | grep -c "Already installed") 
+#
+if [ $php -eq 0 ]; then
+	echo "php paigaldamine koos lisa pakettidega..."
+	apt update
+	apt install php7.3-cli php7.3-common php7.3-curl php7.3-mbstring php7.3-mysql php7.3-xml
+#
+elif [$php -eq 1 ]; then
+	echo "php on juba paigaldatud!"
+	service php status
+fi
